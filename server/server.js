@@ -30,6 +30,18 @@ app.get('/shop', async (req, res) => {
 });
 
 
+app.get("/api/plant/:id", async (req, res) => {
+  const plants = await readPlants()
+  const decodedId = decodeURIComponent(req.params.id);
+  const plant = plants.find(plant => plant.id === Number(decodedId));
+  
+  if (plant) {
+      res.json(plant);
+  } else {
+      res.status(404).json({ error: 'Plant not found' });
+  }
+})
+
 
 
 app.listen(PORT, () => {

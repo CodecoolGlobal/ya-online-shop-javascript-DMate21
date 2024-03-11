@@ -1,5 +1,4 @@
-{
-  "plants": [
+[
     {
       "id": 1,
       "name": "Snake Plant",
@@ -91,4 +90,3 @@
       "light_requirement": "Bright, indirect light"
     }
   ]
-}

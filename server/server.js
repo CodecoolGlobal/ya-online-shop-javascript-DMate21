@@ -29,7 +29,13 @@ app.get('/shop', async (req, res) => {
   res.sendFile(path.join(__dirname, '../client/client.html'));
 });
 
+app.get('/admin', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/admin.html'));
+});
 
+
+app.get('/api/plant/:id', async (req, res) => {
+  const plants = await readPlants();
 app.get('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
@@ -37,13 +43,15 @@ app.get('/api/plant/:id', async (req, res) => {
 
   if (plant) {
     res.json(plant);
+    res.json(plant);
   } else {
     res.status(404).json({ error: 'Plant not found' });
   }
 });
+});
 
 app.delete('/api/plant/:id', async (req, res) => {
-  const plants = readPlants();
+  const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
 
@@ -56,25 +64,34 @@ app.delete('/api/plant/:id', async (req, res) => {
 });
 
 app.put('/api/plant/:id', async (req, res) => {
-  const plants = readPlants();
+  const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
   const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
-  res.send(plants[plantId - 1]);
+  res.send(plants[plantIndex]);
 });
 
 app.post('/api/plant/:id', async (req, res) => {
-  const plants = readPlants();
+  const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
   const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
-  res.send(plants[plantId - 1]);
+  res.send(plants[plantIndex]);
 });
 
+app.patch('/api/plant/:id/price', async (req, res) => {
+  const plants = readPlants();
+  const plantId = parseInt(req.params.id);
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId );
+  const replacement = req.body;
+  plants[plantIndex].price = replacement;
+  await writeFile(dataJsonPath, JSON.stringify(plants), null, 2);
+  res.send(plants[plantIndex]);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

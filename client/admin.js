@@ -12,7 +12,7 @@ function appendElement (parent, tagName, classes, text, attributes) {
   const elementName = document.createElement(tagName);
   parent.appendChild(elementName);
   if (classes) {
-    if (typeof classes === "string" ){
+    if (typeof classes === 'string' ){
       classes = [classes];
     }
     for (const className of classes){
@@ -32,18 +32,18 @@ async function putPlant(id, replacement) {
   await fetch (`/api/plant/${id}`, {
     method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(replacement)
-  })
+    body: JSON.stringify(replacement),
+  });
 }
 
 async function deleteUserById(id) {
   const httpResponse = await fetch(
-    `/api/plant/${id}`, 
+    `/api/plant/${id}`,
     {
-      method: 'DELETE'
-    }
+      method: 'DELETE',
+    },
   );
 
   const deletedPlant = await httpResponse.json();
@@ -52,9 +52,9 @@ async function deleteUserById(id) {
 
 
 async function main() {
-  const allPlants = await fetchData("/api/plants");
+  const allPlants = await fetchData('/api/plants');
   allPlants.forEach((plant) => {
-    appendElement(document.getElementById("root"), "div", "plants", plant.name, {id: plant.id})
-  })
+    appendElement(document.getElementById('root'), 'div', 'plants', plant.name, {id: plant.id});
+  });
 }
 main();

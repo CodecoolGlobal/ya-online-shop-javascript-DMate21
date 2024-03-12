@@ -28,6 +28,29 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
+async function putPlant(id, replacement) {
+  await fetch (`/api/plant/${id}`, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(replacement)
+  })
+}
+
+async function deleteUserById(id) {
+  const httpResponse = await fetch(
+    `/api/plant/${id}`, 
+    {
+      method: 'DELETE'
+    }
+  );
+
+  const deletedPlant = await httpResponse.json();
+  return deletedPlant;
+}
+
+
 async function main() {
   const allPlants = await fetchData("/api/plants");
   allPlants.forEach((plant) => {

@@ -29,13 +29,15 @@ function appendElement (parent, tagName, classes, text, attributes) {
 }
 
 function displayPlants(plants, parent) {
-  const cartDiv = appendElement(parent, "div", "cart");
-  const plantsDiv = appendElement(cartDiv, "div", "plantsDiv", "Your cart: ");
-  const totalPriceDiv = appendElement(cartDiv, "div", "total");
+  const cartDiv = appendElement(parent, "div", "cart", null);
+  const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
+  const plantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
+  const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
   let totalPrice = 0;
   const plantsObject = {};
+  const allPlants = appendElement(parent, "div", "plants");
   plants.forEach((plant) => {
-    const currentPlant = appendElement(parent, "div", "plants", plant.name, {id: plant.id});
+    const currentPlant = appendElement(allPlants, "div", "plants", plant.name, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
     plantsObject[plant.name] = 1;
@@ -55,14 +57,35 @@ function displayPlants(plants, parent) {
       }
     });
   });
+  cartListener(imgElement, totalPriceDiv, plantsDiv);
+}
+
+function cartListener(imgElement, totalPriceDiv, plantsDiv) {
+  const allPlantsDivs = document.querySelector(".plants");
+  imgElement.addEventListener("click", () => {
+    allPlantsDivs.textContent = "";
+    plantsDiv.classList.toggle("hidden");
+    totalPriceDiv.classList.toggle("hidden");
+  });
+}
+
+async function backButton() {
+  const rootElement = document.querySelector("#root");
+  const allPlants = await fetchData("/api/plants/");
+  const back = appendElement(rootElement, "button", "back", "Continue shopping");
+  back.addEventListener("click", () => {
+    displayPlants(allPlants, rootElement);
+  });
 }
 
 
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
-  const modal = appendElement(rootElement, "div", "modal", null, {id: "modal"});
-  const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+  // const modal = appendElement(rootElement, "div", "modal", null, {id: "modal"});
+  // const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
   displayPlants(allPlants, rootElement);
+  backButton();
+
 }
 main();

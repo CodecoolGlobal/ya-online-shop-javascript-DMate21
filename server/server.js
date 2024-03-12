@@ -45,12 +45,12 @@ app.get('/api/plant/:id', async (req, res) => {
 app.delete('/api/plant/:id', async (req, res) => {
   const plants = readPlants();
   const plantId = parseInt(req.params.id);
-  const userIndex = plants.findIndex((plant) => plant.id === plantId);
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId);
 
-  if (userIndex === -1) {
+  if (plantIndex === -1) {
     return res.send(plants);
   }
-  plants.splice(userIndex, 1);
+  plants.splice(plantIndex, 1);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(plants);
 });

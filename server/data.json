@@ -90,23 +90,22 @@
     "pic": "/plants/Aloe Vera.jpg"
   },
   {
-    "id": 10,
-    "name": "Majesty Palm",
-    "description": "The Majesty Palm is a tropical plant with feathery fronds, adding a touch of the tropics to any indoor space.",
-    "price": 32.99,
-    "stock": 10,
-    "water_requirement": "High",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Majesty Palm.png"
+    "name": "valami",
+    "description": "leiras",
+    "price": "2",
+    "stock": "3",
+    "water_requirement": "kevés",
+    "light_requirement": "sok",
+    "pic": "/plants/Aloe Vera.jpg"
   },
   {
-    "id": 26,
-    "name": "Aloe Vera",
-    "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
-    "price": 17.99,
-    "stock": 16,
-    "water_requirement": "Low",
-    "light_requirement": "Bright, indirect light",
+    "id": "",
+    "name": "valami",
+    "description": "dsfdfdfg",
+    "price": "10",
+    "stock": "9",
+    "water_requirement": "kevés",
+    "light_requirement": "sok",
     "pic": "/plants/Aloe Vera.jpg"
   }
 ]

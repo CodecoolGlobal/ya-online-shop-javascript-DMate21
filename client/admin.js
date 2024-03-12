@@ -1,4 +1,5 @@
-async function fetchData (url) {
+/* eslint-disable max-len */
+async function fetchData(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -8,14 +9,14 @@ async function fetchData (url) {
   }
 }
 
-function appendElement (parent, tagName, classes, text, attributes) {
+function appendElement(parent, tagName, classes, text, attributes) {
   const element = document.createElement(tagName);
   parent.appendChild(element);
   if (classes) {
-    if (typeof classes === "string" ){
+    if (typeof classes === "string") {
       classes = [classes];
     }
-    for (const className of classes){
+    for (const className of classes) {
       element.classList.add(className);
     }
   }
@@ -28,8 +29,8 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return element;
 }
 
-async function postPlant(id, replacement) {
-  await fetch (`/api/plant/${id}`, {
+async function postPlant(replacement) {
+  await fetch("/api/plant", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,15 +39,39 @@ async function postPlant(id, replacement) {
   });
 }
 
-function handlePatch() {
-   
+function addPostEventListener() {
+  const form = document.getElementById("new-plant");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const nameInput = document.getElementById("input-name");
+    const descriptionInput = document.getElementById("input-description");
+    const priceInput = document.getElementById("input-price");
+    const stockInput = document.getElementById("input-stock");
+    const waterInput = document.getElementById("input-water");
+    const lightInput = document.getElementById("input-light");
+    const picInput = document.getElementById("input-pic");
+
+    const newPlant = {
+      id: "",
+      name: nameInput.value,
+      description: descriptionInput.value,
+      price: priceInput.value,
+      stock: stockInput.value,
+      water_requirement: waterInput.value,
+      light_requirement: lightInput.value,
+      pic: picInput.value,
+    };
+    await postPlant(newPlant);
+    displayPlants();
+  });
 }
 
 async function deletePlantById(id) {
-  await fetch(`/api/plant/${id}`, {method: "DELETE"});
+  await fetch(`/api/plant/${id}`, { method: "DELETE" });
 }
 
-function addDeleteButtonListener(deleteButton){
+function addDeleteButtonListener(deleteButton) {
   deleteButton.addEventListener("click", async (event) => {
     await deletePlantById(event.target.id);
     displayPlants();
@@ -55,10 +80,10 @@ function addDeleteButtonListener(deleteButton){
 
 
 function displayInputs(parent) {
-  const form = appendElement(parent, "form", null, null, {id: "form"});
-  appendElement(form, "input", "input", null, {id: "price"}  );
+  const form = appendElement(parent, "form", null, null, { id: "form" });
+  appendElement(form, "input", "input", null, { id: "price" });
   appendElement(form, "button", "priceButton", "submit price");
-  appendElement(form, "input", "input", null, {id: "stock"} );
+  appendElement(form, "input", "input", null, { id: "stock" });
   appendElement(form, "button", "stockButton", "submit stock");
 }
 
@@ -70,24 +95,26 @@ function displayPlantData(parent, plant) {
   appendElement(parent, "li", null, `stock: ${plant.stock}`);
   appendElement(parent, "li", null, `water requirement: ${plant.water_requirement}`);
   appendElement(parent, "li", null, `light requirement: ${plant.light_requirement}`);
-  appendElement(parent, "img", null, null, {src: plant.pic});
+  appendElement(parent, "img", null, null, { src: plant.pic });
 }
 
-async function displayPlants () {
+async function displayPlants() {
   const rootElement = document.getElementById("root");
   rootElement.innerHTML = "";
   const allPlants = await fetchData("/api/plants");
   allPlants.forEach((plant) => {
-    const currentplant = appendElement(rootElement, "div", "plants", plant.name, {id: plant.id});
-    const deleteButton = appendElement(currentplant, "button", "deleteButton", "delete", {id: plant.id});
+    const currentplant = appendElement(rootElement, "div", "plants", plant.name, { id: plant.id });
+    const deleteButton = appendElement(currentplant, "button", "deleteButton", "delete", { id: plant.id });
     displayPlantData(currentplant, plant);
     displayInputs(rootElement);
     addDeleteButtonListener(deleteButton);
   });
+  return allPlants;
 }
 
 
 function main() {
   displayPlants();
+  addPostEventListener();
 }
 main();

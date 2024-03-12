@@ -98,15 +98,5 @@
     "water_requirement": "High",
     "light_requirement": "Bright, indirect light",
     "pic": "/plants/Majesty Palm.png"
-  },
-  {
-    "id": 26,
-    "name": "Aloe Vera",
-    "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
-    "price": 17.99,
-    "stock": 16,
-    "water_requirement": "Low",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Aloe Vera.jpg"
   }
 ]

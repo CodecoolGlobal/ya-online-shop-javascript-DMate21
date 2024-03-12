@@ -61,6 +61,8 @@ function displayPlants(plants, parent) {
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
+  const modal = appendElement(rootElement, "div", "modal", null, {id: "modal"});
+  const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
   displayPlants(allPlants, rootElement);
 }
 main();

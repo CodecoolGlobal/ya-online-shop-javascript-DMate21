@@ -25,25 +25,24 @@ app.get("/api/plants", async (req, res) => {
   return res.json(plants);
 });
 
-app.get("/shop", async (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/client.html"));
+app.get('/shop', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/client.html'));
 });
 
-app.get("/admin", async (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/admin.html"));
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/admin.html'));
 });
 
 
-app.get("/api/plant/:id", async (req, res) => {
+app.get('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
-  const plant = plants.find((plant) => plant.id === Number(decodedId));
+  const currentplant = plants.find((plant) => plant.id === Number(decodedId));
 
-  if (plant) {
-    res.json(plant);
-  } else {
-    res.status(404).json({ error: "Plant not found" });
+  if (!currentplant) {
+    res.status(404).json({ error: 'Plant not found' });
   }
+  res.json(currentplant);
 });
 
 app.delete("/api/plant/:id", async (req, res) => {
@@ -56,7 +55,7 @@ app.delete("/api/plant/:id", async (req, res) => {
   }
   plants.splice(plantIndex, 1);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
-  res.send(plants);
+  return res.send(plants);
 });
 
 app.put("/api/plant/:id", async (req, res) => {

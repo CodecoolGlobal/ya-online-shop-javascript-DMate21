@@ -28,10 +28,14 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
-async function main() {
-  const allPlants = await fetchData("/api/plants");
-  allPlants.forEach((plant) => {
+function displayPlants(plants) {
+  plants.forEach((plant) => {
     appendElement(document.getElementById("root"), "div", "plants", plant.name, {id: plant.id})
   })
+}
+
+async function main() {
+  const allPlants = await fetchData("/api/plants");
+  displayPlants(allPlants);
 }
 main();

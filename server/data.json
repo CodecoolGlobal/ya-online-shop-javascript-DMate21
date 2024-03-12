@@ -6,7 +6,8 @@
       "price": 12.99,
       "stock": 25,
       "water_requirement": "Low",
-      "light_requirement": "Low to medium"
+      "light_requirement": "Low to medium",
+      "pic": "/plants/Snakeplant.jpg"
     },
     {
       "id": 2,
@@ -15,7 +16,8 @@
       "price": 29.99,
       "stock": 15,
       "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light"
+      "light_requirement": "Bright, indirect light",
+      "pic": "/plants/Fiddle Leaf Fig.jpg"
     },
     {
       "id": 3,
@@ -24,7 +26,8 @@
       "price": 24.99,
       "stock": 20,
       "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light"
+      "light_requirement": "Bright, indirect light",
+      "pic": "/plants/Monstera Deliciosa.jpg"
     },
     {
       "id": 4,
@@ -33,7 +36,8 @@
       "price": 16.99,
       "stock": 30,
       "water_requirement": "Low",
-      "light_requirement": "Low to medium"
+      "light_requirement": "Low to medium",
+      "pic": "/plants/ZZ Plant.jpg"
     },
     {
       "id": 5,
@@ -42,7 +46,8 @@
       "price": 19.99,
       "stock": 18,
       "water_requirement": "High",
-      "light_requirement": "Low to medium"
+      "light_requirement": "Low to medium",
+      "pic": "/plants/Peace Lily.jpg"
     },
     {
       "id": 6,
@@ -51,7 +56,8 @@
       "price": 10.99,
       "stock": 22,
       "water_requirement": "Moderate",
-      "light_requirement": "Medium to bright, indirect light"
+      "light_requirement": "Medium to bright, indirect light",
+      "pic": "/plants/Spider Plant.jpg"
     },
     {
       "id": 7,
@@ -60,7 +66,8 @@
       "price": 21.99,
       "stock": 12,
       "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light"
+      "light_requirement": "Bright, indirect light",
+      "pic": "/plants/Rubber Plant.jpg"
     },
     {
       "id": 8,
@@ -69,7 +76,8 @@
       "price": 14.99,
       "stock": 28,
       "water_requirement": "Low to moderate",
-      "light_requirement": "Low to bright, indirect light"
+      "light_requirement": "Low to bright, indirect light",
+      "pic": "/plants/Pothos.jpg"
     },
     {
       "id": 9,
@@ -78,7 +86,8 @@
       "price": 17.99,
       "stock": 16,
       "water_requirement": "Low",
-      "light_requirement": "Bright, indirect light"
+      "light_requirement": "Bright, indirect light",
+      "pic": "/plants/Aloe Vera.jpg"
     },
     {
       "id": 10,
@@ -87,6 +96,7 @@
       "price": 32.99,
       "stock": 10,
       "water_requirement": "High",
-      "light_requirement": "Bright, indirect light"
+      "light_requirement": "Bright, indirect light",
+      "pic": "/plants/Majesty Palm.png"
     }
   ]

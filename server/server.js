@@ -42,40 +42,38 @@ app.get('/api/plant/:id', async (req, res) => {
   }
 });
 
-app.delete(`/api/plant/:id`, async (req, res) => {
+app.delete('/api/plant/:id', async (req, res) => {
   const plants = readPlants();
   const plantId = parseInt(req.params.id);
-  const userIndex = plants.findIndex(plant => plant.id === plantId);
+  const userIndex = plants.findIndex((plant) => plant.id === plantId);
 
   if (userIndex === -1) {
-        return res.send(plants);
-      }
-
-  
+    return res.send(plants);
+  }
   plants.splice(userIndex, 1);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(plants);
 });
 
-app.put("/api/plant/:id", async (req, res) => {
-  const plants = readPlants()
+app.put('/api/plant/:id', async (req, res) => {
+  const plants = readPlants();
   const plantId = parseInt(req.params.id);
-  const plantIndex = plants.findIndex(plant => plant.id === plantId);
-  const replacement = req.body
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId);
+  const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);
-  await writeFile(dataJsonPath, JSON.stringify(plants, null, 2))
-  res.send(plants[plantId-1])
-})
+  await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
+  res.send(plants[plantId - 1]);
+});
 
-app.post("/api/plant/:id", async (req, res) => {
-  const plants = readPlants()
+app.post('/api/plant/:id', async (req, res) => {
+  const plants = readPlants();
   const plantId = parseInt(req.params.id);
-  const plantIndex = plants.findIndex(plant => plant.id === plantId);
-  const replacement = req.body
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId);
+  const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);
-  await writeFile(dataJsonPath, JSON.stringify(plants, null, 2))
-  res.send(plants[plantId-1])
-})
+  await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
+  res.send(plants[plantId - 1]);
+});
 
 
 app.listen(PORT, () => {

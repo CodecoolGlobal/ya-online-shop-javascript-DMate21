@@ -12,7 +12,7 @@ function appendElement (parent, tagName, classes, text, attributes) {
   const elementName = document.createElement(tagName);
   parent.appendChild(elementName);
   if (classes) {
-    if (typeof classes === "string" ){
+    if (typeof classes === 'string' ){
       classes = [classes];
     }
     for (const className of classes){
@@ -30,12 +30,13 @@ function appendElement (parent, tagName, classes, text, attributes) {
 
 function displayPlants(plants) {
   plants.forEach((plant) => {
-    appendElement(document.getElementById("root"), "div", "plants", plant.name, {id: plant.id})
-  })
+    appendElement(document.getElementById('root'), 'div', 'plants', plant.name, {id: plant.id});
+    appendElement(document.getElementById(`${plant.id}`), "img", null, null, {src: plant.pic});
+  });
 }
 
 async function main() {
-  const allPlants = await fetchData("/api/plants");
+  const allPlants = await fetchData('/api/plants');
   displayPlants(allPlants);
 }
 main();

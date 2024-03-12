@@ -72,7 +72,7 @@
       "ignoreRegExpLiterals": true
     }],
     "no-trailing-spaces": "warn",
-    "quotes": ["warn", "single"],
+    "quotes": ["warn", "double"],
     "space-infix-ops": "warn",
     "space-unary-ops": "warn"
   }

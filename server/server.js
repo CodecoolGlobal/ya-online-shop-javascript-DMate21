@@ -1,40 +1,40 @@
-import express from 'express';
+import express from "express";
 
 
-import { readFile, writeFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import path from 'path';
+import { readFile, writeFile } from "node:fs/promises";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import path from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const dataJsonPath = join(__dirname, 'data.json');
+const dataJsonPath = join(__dirname, "data.json");
 
 const app = express();
 const PORT = 6969;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, "../client")));
 
 async function readPlants() {
-  const plantsJson = await readFile('./data.json', 'utf-8');
+  const plantsJson = await readFile("./data.json", "utf-8");
   return JSON.parse(plantsJson);
 }
 
-app.get('/api/plants', async (req, res) => {
+app.get("/api/plants", async (req, res) => {
   const plants = await readPlants();
   return res.json(plants);
 });
 
-app.get('/shop', async (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/client.html'));
+app.get("/shop", async (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/client.html"));
 });
 
-app.get('/admin', async (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/admin.html'));
+app.get("/admin", async (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/admin.html"));
 });
 
 
-app.get('/api/plant/:id', async (req, res) => {
+app.get("/api/plant/:id", async (req, res) => {
   const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
   const plant = plants.find((plant) => plant.id === Number(decodedId));
@@ -42,11 +42,11 @@ app.get('/api/plant/:id', async (req, res) => {
   if (plant) {
     res.json(plant);
   } else {
-    res.status(404).json({ error: 'Plant not found' });
+    res.status(404).json({ error: "Plant not found" });
   }
 });
 
-app.delete('/api/plant/:id', async (req, res) => {
+app.delete("/api/plant/:id", async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
@@ -59,7 +59,7 @@ app.delete('/api/plant/:id', async (req, res) => {
   res.send(plants);
 });
 
-app.put('/api/plant/:id', async (req, res) => {
+app.put("/api/plant/:id", async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
@@ -69,7 +69,7 @@ app.put('/api/plant/:id', async (req, res) => {
   res.send(plants[plantIndex]);
 });
 
-app.post('/api/plant/', async (req, res) => {
+app.post("/api/plant/", async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
@@ -79,7 +79,7 @@ app.post('/api/plant/', async (req, res) => {
   res.send(plants[plantIndex]);
 });
 
-app.patch('/api/plant/:id/price', async (req, res) => {
+app.patch("/api/plant/:id/price", async (req, res) => {
   const plants = readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId );

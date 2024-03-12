@@ -36,19 +36,27 @@ app.get('/admin', async (req, res) => {
 
 app.get('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
+app.get('/api/plant/:id', async (req, res) => {
+  const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
+  const plant = plants.find((plant) => plant.id === Number(decodedId));
+
   const plant = plants.find((plant) => plant.id === Number(decodedId));
 
   if (plant) {
     res.json(plant);
+    res.json(plant);
   } else {
     res.status(404).json({ error: 'Plant not found' });
+    res.status(404).json({ error: 'Plant not found' });
   }
+});
 });
 
 app.delete('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
+  const userIndex = plants.findIndex((plant) => plant.id === plantId);
   const userIndex = plants.findIndex((plant) => plant.id === plantId);
 
   if (userIndex === -1) {
@@ -66,6 +74,8 @@ app.put('/api/plant/:id', async (req, res) => {
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
   const replacement = req.body;
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId);
+  const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(plants[plantIndex]);
@@ -74,6 +84,8 @@ app.put('/api/plant/:id', async (req, res) => {
 app.post('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
+  const plantIndex = plants.findIndex((plant) => plant.id === plantId);
+  const replacement = req.body;
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
   const replacement = req.body;
   plants.splice(plantIndex, 1, replacement);

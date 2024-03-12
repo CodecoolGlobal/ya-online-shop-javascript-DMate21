@@ -28,10 +28,15 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
+function displayPlants(plants) {
+  plants.forEach((plant) => {
+    appendElement(document.getElementById('root'), 'div', 'plants', plant.name, {id: plant.id});
+    appendElement(document.getElementById(`${plant.id}`), "img", null, null, {src: plant.pic});
+  });
+}
+
 async function main() {
   const allPlants = await fetchData('/api/plants');
-  allPlants.forEach((plant) => {
-    appendElement(document.getElementById('root'), 'div', 'plants', plant.name, {id: plant.id});
-  });
+  displayPlants(allPlants);
 }
 main();

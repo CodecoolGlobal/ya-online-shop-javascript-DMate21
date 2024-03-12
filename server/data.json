@@ -1,102 +1,112 @@
 [
-    {
-      "id": 1,
-      "name": "Snake Plant",
-      "description": "The Snake Plant is a low-maintenance plant that can survive low light levels and irregular watering.",
-      "price": 12.99,
-      "stock": 25,
-      "water_requirement": "Low",
-      "light_requirement": "Low to medium",
-      "pic": "/plants/Snakeplant.jpg"
-    },
-    {
-      "id": 2,
-      "name": "Fiddle Leaf Fig",
-      "description": "The Fiddle Leaf Fig is a popular indoor plant known for its large, violin-shaped leaves.",
-      "price": 29.99,
-      "stock": 15,
-      "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light",
-      "pic": "/plants/Fiddle Leaf Fig.jpg"
-    },
-    {
-      "id": 3,
-      "name": "Monstera Deliciosa",
-      "description": "The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a striking plant with beautiful fenestrated leaves.",
-      "price": 24.99,
-      "stock": 20,
-      "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light",
-      "pic": "/plants/Monstera Deliciosa.jpg"
-    },
-    {
-      "id": 4,
-      "name": "ZZ Plant",
-      "description": "The ZZ Plant is a hardy plant that can tolerate low light and infrequent watering.",
-      "price": 16.99,
-      "stock": 30,
-      "water_requirement": "Low",
-      "light_requirement": "Low to medium",
-      "pic": "/plants/ZZ Plant.jpg"
-    },
-    {
-      "id": 5,
-      "name": "Peace Lily",
-      "description": "The Peace Lily is a popular choice for its elegant white flowers and air-purifying qualities.",
-      "price": 19.99,
-      "stock": 18,
-      "water_requirement": "High",
-      "light_requirement": "Low to medium",
-      "pic": "/plants/Peace Lily.jpg"
-    },
-    {
-      "id": 6,
-      "name": "Spider Plant",
-      "description": "The Spider Plant is known for its air-purifying qualities and ease of care, producing long, arching leaves adorned with baby spider plantlets.",
-      "price": 10.99,
-      "stock": 22,
-      "water_requirement": "Moderate",
-      "light_requirement": "Medium to bright, indirect light",
-      "pic": "/plants/Spider Plant.jpg"
-    },
-    {
-      "id": 7,
-      "name": "Rubber Plant",
-      "description": "The Rubber Plant is a popular houseplant with glossy, dark green leaves that can grow quite large with proper care.",
-      "price": 21.99,
-      "stock": 12,
-      "water_requirement": "Moderate",
-      "light_requirement": "Bright, indirect light",
-      "pic": "/plants/Rubber Plant.jpg"
-    },
-    {
-      "id": 8,
-      "name": "Pothos",
-      "description": "Pothos, also known as Devil's Ivy, is a trailing vine with heart-shaped leaves that can thrive in a variety of light conditions.",
-      "price": 14.99,
-      "stock": 28,
-      "water_requirement": "Low to moderate",
-      "light_requirement": "Low to bright, indirect light",
-      "pic": "/plants/Pothos.jpg"
-    },
-    {
-      "id": 9,
-      "name": "Aloe Vera",
-      "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
-      "price": 17.99,
-      "stock": 16,
-      "water_requirement": "Low",
-      "light_requirement": "Bright, indirect light",
-      "pic": "/plants/Aloe Vera.jpg"
-    },
-    {
-      "id": 10,
-      "name": "Majesty Palm",
-      "description": "The Majesty Palm is a tropical plant with feathery fronds, adding a touch of the tropics to any indoor space.",
-      "price": 32.99,
-      "stock": 10,
-      "water_requirement": "High",
-      "light_requirement": "Bright, indirect light",
-      "pic": "/plants/Majesty Palm.png"
-    }
-  ]
+  {
+    "id": 1,
+    "name": "Snake Plant",
+    "description": "The Snake Plant is a low-maintenance plant that can survive low light levels and irregular watering.",
+    "price": 12.99,
+    "stock": 25,
+    "water_requirement": "Low",
+    "light_requirement": "Low to medium",
+    "pic": "/plants/Snakeplant.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Fiddle Leaf Fig",
+    "description": "The Fiddle Leaf Fig is a popular indoor plant known for its large, violin-shaped leaves.",
+    "price": 29.99,
+    "stock": 15,
+    "water_requirement": "Moderate",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Fiddle Leaf Fig.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Monstera Deliciosa",
+    "description": "The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a striking plant with beautiful fenestrated leaves.",
+    "price": 24.99,
+    "stock": 20,
+    "water_requirement": "Moderate",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Monstera Deliciosa.jpg"
+  },
+  {
+    "id": 4,
+    "name": "ZZ Plant",
+    "description": "The ZZ Plant is a hardy plant that can tolerate low light and infrequent watering.",
+    "price": 16.99,
+    "stock": 30,
+    "water_requirement": "Low",
+    "light_requirement": "Low to medium",
+    "pic": "/plants/ZZ Plant.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Peace Lily",
+    "description": "The Peace Lily is a popular choice for its elegant white flowers and air-purifying qualities.",
+    "price": 19.99,
+    "stock": 18,
+    "water_requirement": "High",
+    "light_requirement": "Low to medium",
+    "pic": "/plants/Peace Lily.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Spider Plant",
+    "description": "The Spider Plant is known for its air-purifying qualities and ease of care, producing long, arching leaves adorned with baby spider plantlets.",
+    "price": 10.99,
+    "stock": 22,
+    "water_requirement": "Moderate",
+    "light_requirement": "Medium to bright, indirect light",
+    "pic": "/plants/Spider Plant.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Rubber Plant",
+    "description": "The Rubber Plant is a popular houseplant with glossy, dark green leaves that can grow quite large with proper care.",
+    "price": 21.99,
+    "stock": 12,
+    "water_requirement": "Moderate",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Rubber Plant.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Pothos",
+    "description": "Pothos, also known as Devil's Ivy, is a trailing vine with heart-shaped leaves that can thrive in a variety of light conditions.",
+    "price": 14.99,
+    "stock": 28,
+    "water_requirement": "Low to moderate",
+    "light_requirement": "Low to bright, indirect light",
+    "pic": "/plants/Pothos.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Aloe Vera",
+    "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
+    "price": 17.99,
+    "stock": 16,
+    "water_requirement": "Low",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Aloe Vera.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Majesty Palm",
+    "description": "The Majesty Palm is a tropical plant with feathery fronds, adding a touch of the tropics to any indoor space.",
+    "price": 32.99,
+    "stock": 10,
+    "water_requirement": "High",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Majesty Palm.png"
+  },
+  {
+    "id": 26,
+    "name": "Aloe Vera",
+    "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
+    "price": 17.99,
+    "stock": 16,
+    "water_requirement": "Low",
+    "light_requirement": "Bright, indirect light",
+    "pic": "/plants/Aloe Vera.jpg"
+  }
+]

@@ -36,18 +36,14 @@ app.get('/admin', async (req, res) => {
 
 app.get('/api/plant/:id', async (req, res) => {
   const plants = await readPlants();
-app.get('/api/plant/:id', async (req, res) => {
-  const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
   const plant = plants.find((plant) => plant.id === Number(decodedId));
 
   if (plant) {
     res.json(plant);
-    res.json(plant);
   } else {
     res.status(404).json({ error: 'Plant not found' });
   }
-});
 });
 
 app.delete('/api/plant/:id', async (req, res) => {
@@ -73,12 +69,12 @@ app.put('/api/plant/:id', async (req, res) => {
   res.send(plants[plantIndex]);
 });
 
-app.post('/api/plant/:id', async (req, res) => {
+app.post('/api/plant/', async (req, res) => {
   const plants = await readPlants();
   const plantId = parseInt(req.params.id);
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
   const replacement = req.body;
-  plants.splice(plantIndex, 1, replacement);
+  plants.push(replacement);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(plants[plantIndex]);
 });

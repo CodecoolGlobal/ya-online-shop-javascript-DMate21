@@ -37,6 +37,8 @@ function displayPlants(plants) {
 
 async function main() {
   const allPlants = await fetchData('/api/plants');
+  const modal = appendElement(rootElement, "div", "modal", null, {id: "modal"});
+  const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
   displayPlants(allPlants);
 }
 main();

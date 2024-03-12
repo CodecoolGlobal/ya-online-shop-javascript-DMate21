@@ -12,7 +12,7 @@ function appendElement (parent, tagName, classes, text, attributes) {
   const elementName = document.createElement(tagName);
   parent.appendChild(elementName);
   if (classes) {
-    if (typeof classes === 'string' ){
+    if (typeof classes === "string" ){
       classes = [classes];
     }
     for (const className of classes){
@@ -28,11 +28,11 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
-async function putPlant(id, replacement) {
+async function postPlant(id, replacement) {
   await fetch (`/api/plant/${id}`, {
-    method: 'PUT',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(replacement),
   });
@@ -42,7 +42,7 @@ async function deleteUserById(id) {
   const httpResponse = await fetch(
     `/api/plant/${id}`,
     {
-      method: 'DELETE',
+      method: "DELETE",
     },
   );
 
@@ -50,11 +50,38 @@ async function deleteUserById(id) {
   return deletedPlant;
 }
 
+function displayInputs(parent) {
+  const form = appendElement(parent, "form", null, null, {id: "form"});
+  appendElement(form, "input", "input", null, {id: "price"}  );
+  appendElement(form, "button", "priceButton", "submit price");
+  appendElement(form, "input", "input", null, {id: "stock"} );
+  appendElement(form, "button", "stockButton", "submit stock");
+}
+
+function displayPlantData(parent, plant) {
+  appendElement(parent, "li", null, `id: ${plant.id}`);
+  appendElement(parent, "li", null, `name: ${plant.name}`);
+  appendElement(parent, "li", null, `description: ${plant.description}`);
+  appendElement(parent, "li", null, `price: ${plant.price}`);
+  appendElement(parent, "li", null, `stock: ${plant.stock}`);
+  appendElement(parent, "li", null, `water requirement: ${plant.water_requirement}`);
+  appendElement(parent, "li", null, `light requirement: ${plant.light_requirement}`);
+  appendElement(parent, "img", null, null, {src: plant.pic});
+}
+
+function displayPlants (parent, plants) {
+  plants.forEach((plant) => {
+    const currentplant = appendElement(parent, "div", "plants", plant.name, {id: plant.id});
+    appendElement(currentplant, "button", "deleteButton", "delete");
+    displayPlantData(currentplant, plant);
+    displayInputs(parent);
+  });
+}
+
 
 async function main() {
-  const allPlants = await fetchData('/api/plants');
-  allPlants.forEach((plant) => {
-    appendElement(document.getElementById('root'), 'div', 'plants', plant.name, {id: plant.id});
-  });
+  const rootElement = document.getElementById("root");
+  const allPlants = await fetchData("/api/plants");
+  displayPlants(rootElement, allPlants);
 }
 main();

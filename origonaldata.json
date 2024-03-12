@@ -6,8 +6,7 @@
     "price": 12.99,
     "stock": 25,
     "water_requirement": "Low",
-    "light_requirement": "Low to medium",
-    "pic": "/plants/Snakeplant.jpg"
+    "light_requirement": "Low to medium"
   },
   {
     "id": 2,
@@ -16,8 +15,7 @@
     "price": 29.99,
     "stock": 15,
     "water_requirement": "Moderate",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Fiddle Leaf Fig.jpg"
+    "light_requirement": "Bright, indirect light"
   },
   {
     "id": 3,
@@ -26,8 +24,7 @@
     "price": 24.99,
     "stock": 20,
     "water_requirement": "Moderate",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Monstera Deliciosa.jpg"
+    "light_requirement": "Bright, indirect light"
   },
   {
     "id": 4,
@@ -36,8 +33,7 @@
     "price": 16.99,
     "stock": 30,
     "water_requirement": "Low",
-    "light_requirement": "Low to medium",
-    "pic": "/plants/ZZ Plant.jpg"
+    "light_requirement": "Low to medium"
   },
   {
     "id": 5,
@@ -46,8 +42,7 @@
     "price": 19.99,
     "stock": 18,
     "water_requirement": "High",
-    "light_requirement": "Low to medium",
-    "pic": "/plants/Peace Lily.jpg"
+    "light_requirement": "Low to medium"
   },
   {
     "id": 6,
@@ -56,8 +51,7 @@
     "price": 10.99,
     "stock": 22,
     "water_requirement": "Moderate",
-    "light_requirement": "Medium to bright, indirect light",
-    "pic": "/plants/Spider Plant.jpg"
+    "light_requirement": "Medium to bright, indirect light"
   },
   {
     "id": 7,
@@ -66,8 +60,7 @@
     "price": 21.99,
     "stock": 12,
     "water_requirement": "Moderate",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Rubber Plant.jpg"
+    "light_requirement": "Bright, indirect light"
   },
   {
     "id": 8,
@@ -76,8 +69,7 @@
     "price": 14.99,
     "stock": 28,
     "water_requirement": "Low to moderate",
-    "light_requirement": "Low to bright, indirect light",
-    "pic": "/plants/Pothos.jpg"
+    "light_requirement": "Low to bright, indirect light"
   },
   {
     "id": 9,
@@ -86,8 +78,7 @@
     "price": 17.99,
     "stock": 16,
     "water_requirement": "Low",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Aloe Vera.jpg"
+    "light_requirement": "Bright, indirect light"
   },
   {
     "id": 10,
@@ -96,17 +87,6 @@
     "price": 32.99,
     "stock": 10,
     "water_requirement": "High",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Majesty Palm.png"
-  },
-  {
-    "id": 26,
-    "name": "Aloe Vera",
-    "description": "Aloe Vera is a succulent plant known for its medicinal properties and ability to soothe burns and skin irritations.",
-    "price": 17.99,
-    "stock": 16,
-    "water_requirement": "Low",
-    "light_requirement": "Bright, indirect light",
-    "pic": "/plants/Aloe Vera.jpg"
+    "light_requirement": "Bright, indirect light"
   }
 ]

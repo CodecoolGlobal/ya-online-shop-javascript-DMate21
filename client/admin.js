@@ -38,9 +38,6 @@ async function postPlant(id, replacement) {
   });
 }
 
-function handlePatch() {
-   
-}
 
 async function deletePlantById(id) {
   await fetch(`/api/plant/${id}`, {method: "DELETE"});

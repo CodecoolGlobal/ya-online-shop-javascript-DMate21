@@ -25,22 +25,22 @@ app.get("/api/plants", async (req, res) => {
   return res.json(plants);
 });
 
-app.get('/shop', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/client.html'));
+app.get("/shop", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/client.html"));
 });
 
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/admin.html'));
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/admin.html"));
 });
 
 
-app.get('/api/plant/:id', async (req, res) => {
+app.get("/api/plant/:id", async (req, res) => {
   const plants = await readPlants();
   const decodedId = decodeURIComponent(req.params.id);
   const currentplant = plants.find((plant) => plant.id === Number(decodedId));
 
   if (!currentplant) {
-    res.status(404).json({ error: 'Plant not found' });
+    res.status(404).json({ error: "Plant not found" });
   }
   res.json(currentplant);
 });

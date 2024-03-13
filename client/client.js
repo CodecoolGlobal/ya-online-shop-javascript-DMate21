@@ -43,8 +43,7 @@ function displayPlants(plants, parent) {
     const currentPlant = appendElement(allPlants, "div", "plants", plant.name, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
-    const infoButton = appendElement(currentPlant, "button", "infoButton", "Informations");
-    displayPlantData(currentPlant, infoButton);
+    // const infoButton = appendElement(currentPlant, "button", "infoButton", "Informations");
     plantsObject[plant.name] = 1;
     plantsObject[plant.price] = plant.price;
     button.addEventListener("click", () => {
@@ -98,10 +97,11 @@ function handelBackButton() {
   });
 }
 
-function displayPlantData(currentPlant, infoButton) {
-  infoButton.addEventListener("click", async () => {
-    const plant = await fetchData(`/api/plant/${currentPlant.id}`);
+function displayPlantData() {
+  const plants = document.querySelector(".plants");
+  plants.addEventListener("click", async (event) => {
     const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
+    const plant = await fetchData(`/api/plant/${event.target.id}`);
     const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
     appendElement(modalContent, "h2", null, plant.name);
     appendElement(modalContent, "p", null, `Id: ${plant.id}`);
@@ -111,22 +111,15 @@ function displayPlantData(currentPlant, infoButton) {
     appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
     appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
     appendElement(modalContent, "img", null, null, {src: plant.pic});
+    const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
     modal.style.display = "block";
+    hideButton.addEventListener("click", () => {
+      modal.textContent = "";
+      modal.style.display = 'none';
+    });
   });
 }
 
-// function hideModal() {
-//   const modal = document.getElementById("modal");
-//   modal.style.display = "none";
-//   isOpen = false;
-// }
-
-// window.addEventListener("click", (event) => {
-//   const modal = document.getElementById("modal");
-//   if (event.target !== modal) {
-//     modal.hide();
-//   }
-// });
 
 // function removeItemFromCartHandler(plantsObject, plant, removeButton) {
 //   removeButton.addEventListener("click", () => {
@@ -145,5 +138,7 @@ async function main() {
 
   displayPlants(allPlants, rootElement);
   handelBackButton();
+  displayPlantData();
+
 }
 main();

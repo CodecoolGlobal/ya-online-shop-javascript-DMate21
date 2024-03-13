@@ -31,19 +31,20 @@ function appendElement (parent, tagName, classes, text, attributes) {
 function displayPlants(plants, parent) {
   const cartDiv = appendElement(parent, "div", "cart", null);
   const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
-  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
+  appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
   const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
   const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
   let counter = 0;
   const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${counter}`);
   let totalPrice = 0;
   const plantsObject = {};
-  const allPlants = appendElement(parent, "div", "plants");
+  const allPlants = appendElement(parent, "div", "plantsContainer");
   plants.forEach((plant) => {
-    const currentPlant = appendElement(allPlants, "div", "plants", plant.name, {id: plant.id});
+    const currentPlant = appendElement(allPlants, "div", "plants", null, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
+    appendElement(currentPlant, "h6", null, plant.name);
+    appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
-    const infoButton = appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     plantsObject[plant.name] = 1;
     plantsObject[plant.price] = plant.price;
     button.addEventListener("click", () => {
@@ -70,7 +71,7 @@ function displayPlants(plants, parent) {
 }
 
 function cartListener(imgElement, totalPriceDiv, plantsDiv) {
-  const allPlantsDivs = document.querySelector(".plants");
+  const allPlantsDivs = document.querySelector(".plantsContainer");
   const rootElement = document.querySelector("#root");
   const checkoutButton = document.querySelector(".checkout");
   const back = appendElement(rootElement, "button", ["back", "hidden"], "Continue shopping");
@@ -91,7 +92,7 @@ function handelBackButton() {
   back.addEventListener("click", () => {
     plantsDiv.classList.add("hidden");
     totalPriceDiv.classList.add("hidden");
-    const allPlantsDivs = document.querySelector(".plants");
+    const allPlantsDivs = document.querySelector(".plantsContainer");
     allPlantsDivs.classList.remove("hidden");
     back.classList.add("hidden");
     checkoutButton.classList.add("hidden");
@@ -99,24 +100,26 @@ function handelBackButton() {
 }
 
 function displayPlantData() {
-  const infoButton = document.querySelector(".infoButton");
-  infoButton.addEventListener("click", async (event) => {
-    const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
-    const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
-    const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
-    appendElement(modalContent, "h2", null, plant.name);
-    appendElement(modalContent, "p", null, `Id: ${plant.id}`);
-    appendElement(modalContent, "p", null, `Description: ${plant.description}`);
-    appendElement(modalContent, "p", null, `Price: ${plant.price}`);
-    appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
-    appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
-    appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
-    appendElement(modalContent, "img", null, null, {src: plant.pic});
-    const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
-    modal.style.display = "block";
-    hideButton.addEventListener("click", () => {
-      modal.textContent = "";
-      modal.style.display = "none";
+  const infoButtons = document.querySelectorAll(".infoButton");
+  infoButtons.forEach((infoButton) => {
+    infoButton.addEventListener("click", async (event) => {
+      const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
+      const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
+      const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+      appendElement(modalContent, "h2", null, plant.name);
+      appendElement(modalContent, "p", null, `Id: ${plant.id}`);
+      appendElement(modalContent, "p", null, `Description: ${plant.description}`);
+      appendElement(modalContent, "p", null, `Price: ${plant.price}`);
+      appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
+      appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
+      appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
+      appendElement(modalContent, "img", null, null, {src: plant.pic});
+      const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
+      modal.style.display = "block";
+      hideButton.addEventListener("click", () => {
+        modal.textContent = "";
+        modal.style.display = "none";
+      });
     });
   });
 }

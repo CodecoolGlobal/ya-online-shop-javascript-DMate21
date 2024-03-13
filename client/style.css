@@ -5,3 +5,6 @@ img{
 .hidden{
   display: none;
 }
+.counter{
+  padding-inline-start: 10px;
+}

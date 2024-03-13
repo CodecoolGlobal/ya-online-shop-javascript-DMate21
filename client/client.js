@@ -43,7 +43,7 @@ function displayPlants(plants, parent) {
     const currentPlant = appendElement(allPlants, "div", "plants", plant.name, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
-    const infoButton = appendElement(currentPlant, "button", "infoButton", "Informations");
+    const infoButton = appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     displayPlantData(currentPlant, infoButton);
     plantsObject[plant.name] = 1;
     plantsObject[plant.price] = plant.price;

@@ -1,6 +1,6 @@
 img {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -122,11 +122,12 @@ body {
 }
 
 .modalContent {
-  background-color: #fefefe;
+  background-color: #eee6e0;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  border-radius: 8px;
 }
 
 
@@ -162,4 +163,26 @@ button:focus {
   font-style: normal;
   font-weight: lighter;
   color: #0d2111;
+}
+h6{
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: lighter;
+  font-size: 25px;
+  font-weight: larger;
+  margin: 0;
+}
+.cartButton{
+  float: right;
+  margin-right: 50px;
+}
+/* .infoButton{
+  float: left;
+  margin-left: 50px;
+} */
+
+.hideButton{
+  float: right;
+  margin-right: 50px;
 }

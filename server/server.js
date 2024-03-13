@@ -78,17 +78,20 @@ app.post("/api/plant/", async (req, res) => {
   });
   const newPlant = req.body;
   newPlant.id = highestId + 1;
+
   plants.push(newPlant);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(newPlant);
 });
 
-app.patch("/api/plant/:id/price", async (req, res) => {
-  const plants = readPlants();
+
+app.patch("/api/plant/:id/:type", async (req, res) => {
+  const plants = await readPlants();
   const plantId = parseInt(req.params.id);
+  const patchType = req.params.type;
   const plantIndex = plants.findIndex((plant) => plant.id === plantId);
-  const replacement = req.body;
-  plants[plantIndex].price = replacement;
+  const replacement = req.body[patchType];
+  plants[plantIndex][patchType] = replacement;
   await writeFile(dataJsonPath, JSON.stringify(plants), null, 2);
   res.send(plants[plantIndex]);
 });

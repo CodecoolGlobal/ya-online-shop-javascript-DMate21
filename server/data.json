@@ -98,15 +98,5 @@
     "water_requirement": "High",
     "light_requirement": "Bright, indirect light",
     "pic": "/plants/Majesty Palm.png"
-  },
-  {
-    "id": 11,
-    "name": "hóvirág",
-    "description": "tavaszi virág",
-    "price": "34",
-    "stock": "54",
-    "water_requirement": "valamennyi",
-    "light_requirement": "tedd napra",
-    "pic": "/plants/Aloe Vera.jpg"
   }
 ]

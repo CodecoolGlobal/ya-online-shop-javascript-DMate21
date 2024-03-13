@@ -42,6 +42,8 @@ function displayPlants(plants, parent) {
     const currentPlant = appendElement(allPlants, "div", "plants", plant.name, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
+    const infoButton = appendElement(currentPlant, "button", "infoButton", "Informations");
+    displayPlantData(currentPlant, infoButton);
     plantsObject[plant.name] = 1;
     plantsObject[plant.price] = plant.price;
     button.addEventListener("click", () => {
@@ -89,16 +91,41 @@ function handelBackButton() {
   });
 }
 
+function displayPlantData(currentPlant, infoButton) {
+  infoButton.addEventListener("click", async () => {
+    const plant = await fetchData(`/api/plant/${currentPlant.id}`);
+    const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
+    const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+    appendElement(modalContent, "h2", null, plant.name);
+    appendElement(modalContent, "p", null, `Id: ${plant.id}`);
+    appendElement(modalContent, "p", null, `Description: ${plant.description}`);
+    appendElement(modalContent, "p", null, `Price: ${plant.price}`);
+    appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
+    appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
+    appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
+    appendElement(modalContent, "img", null, null, {src: plant.pic});
+    modal.style.display = "block";
+  });
+}
 
+// function hideModal() {
+//   const modal = document.getElementById("modal");
+//   modal.style.display = "none";
+//   isOpen = false;
+// }
 
+// window.addEventListener("click", (event) => {
+//   const modal = document.getElementById("modal");
+//   if (event.target !== modal) {
+//     modal.hide();
+//   }
+// });
 
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
-  // const modal = appendElement(rootElement, "div", "modal", null, {id: "modal"});
-  // const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+
   displayPlants(allPlants, rootElement);
   handelBackButton();
-
 }
 main();

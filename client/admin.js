@@ -29,6 +29,26 @@ function appendElement(parent, tagName, classes, text, attributes) {
   return element;
 }
 
+async function patchPlant(id, updates, type) {
+  await fetch(`/api/plant/${id}/${type}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updates),
+  });
+}
+
+function addPatchEventListener(button, input, currentPlant, type){
+  button.addEventListener("click", async () => {
+    const update = {
+      [type]: parseInt(input.value),
+    };
+    await patchPlant(currentPlant.id, update, type);
+    displayPlants();
+  });
+}
+
 async function postPlant(replacement) {
   await fetch("/api/plant", {
     method: "POST",
@@ -71,9 +91,9 @@ async function deletePlantById(id) {
   await fetch(`/api/plant/${id}`, { method: "DELETE" });
 }
 
-function addDeleteButtonListener(deleteButton) {
-  deleteButton.addEventListener("click", async (event) => {
-    await deletePlantById(event.target.id);
+function addDeleteButtonListener(deleteButton, currentplant) {
+  deleteButton.addEventListener("click", async () => {
+    await deletePlantById(currentplant.id);
     displayPlants();
   });
 }
@@ -81,10 +101,15 @@ function addDeleteButtonListener(deleteButton) {
 
 function displayInputs(parent) {
   const form = appendElement(parent, "form", null, null, { id: "form" });
-  appendElement(form, "input", "input", null, { id: "price" });
-  appendElement(form, "button", "priceButton", "submit price");
-  appendElement(form, "input", "input", null, { id: "stock" });
-  appendElement(form, "button", "stockButton", "submit stock");
+  const priceInput = appendElement(form, "input", "priceInput", null, { id: "price" });
+  const priceButton = appendElement(form, "button", "priceButton", "submit price");
+  const stockInput = appendElement(form, "input", "stockInput", null, { id: "stock" });
+  const stockButton = appendElement(form, "button", "stockButton", "submit stock");
+  priceInput.placeholder = "Edit plant price";
+  stockInput.placeholder = "Edit stock";
+  addPatchEventListener(priceButton, priceInput, parent, "price");
+  addPatchEventListener(stockButton, stockInput, parent, "stock");
+
 }
 
 function displayPlantData(parent, plant) {
@@ -104,10 +129,10 @@ async function displayPlants() {
   const allPlants = await fetchData("/api/plants");
   allPlants.forEach((plant) => {
     const currentplant = appendElement(rootElement, "div", "plants", plant.name, { id: plant.id });
-    const deleteButton = appendElement(currentplant, "button", "deleteButton", "delete", { id: plant.id });
+    const deleteButton = appendElement(currentplant, "button", "deleteButton", "delete");
     displayPlantData(currentplant, plant);
-    displayInputs(rootElement);
-    addDeleteButtonListener(deleteButton);
+    displayInputs(currentplant);
+    addDeleteButtonListener(deleteButton, currentplant);
   });
   return allPlants;
 }

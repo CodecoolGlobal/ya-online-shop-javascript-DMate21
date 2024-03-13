@@ -31,7 +31,8 @@ function appendElement (parent, tagName, classes, text, attributes) {
 function displayPlants(plants, parent) {
   const cartDiv = appendElement(parent, "div", "cart", null);
   const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
-  const addedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
+  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
+  const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
   const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
   let counter = 0;
   const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${counter}`);
@@ -50,29 +51,33 @@ function displayPlants(plants, parent) {
       counter++;
       counterElement.textContent = `Items: ${counter}`;
       if (!document.getElementById(plant.name)) {
-        appendElement(addedPlantsDiv, "li", null, plant.name, {id: plant.name});
-        appendElement(addedPlantsDiv, "ul", null, `quantity: ${plantsObject[plant.name]}`, {id: `quant${plant.name}`});
-        appendElement(addedPlantsDiv, "ul", null, `price: ${plantsObject[plant.price].toFixed(2)}`, {id: `price${plant.name}`});
+        const addedPlants = appendElement(allAddedPlantsDiv, "div", "added");
+        appendElement(addedPlants, "img", null, null, {src: plant.pic});
+        appendElement(addedPlants, "li", null, plant.name, {id: plant.name});
+        appendElement(addedPlants, "ul", null, `quantity: ${plantsObject[plant.name]}`, {id: `quant${plant.name}`});
+        appendElement(addedPlants, "ul", null, `price: ${plantsObject[plant.price].toFixed(2)}`, {id: `price${plant.name}`});
+        // appendElement(addedPlants, "button", "delete", "Remove from cart");
       } else {
         plantsObject[plant.name]++;
         plantsObject[plant.price] += plant.price;
         document.getElementById(`quant${plant.name}`).textContent = `quantity: ${plantsObject[plant.name]}`;
-        document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;
-      }
+        document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;      }
     });
   });
-  cartListener(imgElement, totalPriceDiv, addedPlantsDiv);
+  cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
 }
 
 function cartListener(imgElement, totalPriceDiv, plantsDiv) {
   const allPlantsDivs = document.querySelector(".plants");
   const rootElement = document.querySelector("#root");
+  const checkoutButton = document.querySelector(".checkout");
   const back = appendElement(rootElement, "button", ["back", "hidden"], "Continue shopping");
   imgElement.addEventListener("click", () => {
     allPlantsDivs.classList.add("hidden");
     plantsDiv.classList.remove("hidden");
     totalPriceDiv.classList.remove("hidden");
     back.classList.remove("hidden");
+    checkoutButton.classList.remove("hidden");
   });
 }
 
@@ -80,15 +85,28 @@ function handelBackButton() {
   const plantsDiv = document.querySelector(".plantsDiv");
   const totalPriceDiv = document.querySelector(".total");
   const back = document.querySelector(".back");
+  const checkoutButton = document.querySelector(".checkout");
   back.addEventListener("click", () => {
     plantsDiv.classList.add("hidden");
     totalPriceDiv.classList.add("hidden");
     const allPlantsDivs = document.querySelector(".plants");
     allPlantsDivs.classList.remove("hidden");
     back.classList.add("hidden");
+    checkoutButton.classList.add("hidden");
   });
 }
 
+
+
+
+// function removeItemFromCartHandler(plantsObject, plant, removeButton) {
+//   removeButton.addEventListener("click", () => {
+//     plantsObject[plant]--;
+//     plantsObject[plant.price] -= plant.price;
+//     document.getElementById(`quant${plant.name}`).textContent = `quantity: ${plantsObject[plant.name]}`;
+//     document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;
+//   });
+// }
 
 
 
@@ -99,6 +117,5 @@ async function main() {
   // const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
   displayPlants(allPlants, rootElement);
   handelBackButton();
-
 }
 main();

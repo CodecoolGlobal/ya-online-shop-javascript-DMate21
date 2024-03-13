@@ -44,7 +44,6 @@ function displayPlants(plants, parent) {
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
     const infoButton = appendElement(currentPlant, "button", "infoButton", "Information about the plant");
-    displayPlantData(currentPlant, infoButton);
     plantsObject[plant.name] = 1;
     plantsObject[plant.price] = plant.price;
     button.addEventListener("click", () => {
@@ -63,7 +62,8 @@ function displayPlants(plants, parent) {
         plantsObject[plant.name]++;
         plantsObject[plant.price] += plant.price;
         document.getElementById(`quant${plant.name}`).textContent = `quantity: ${plantsObject[plant.name]}`;
-        document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;      }
+        document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;
+      }
     });
   });
   cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
@@ -99,10 +99,10 @@ function handelBackButton() {
 }
 
 function displayPlantData() {
-  const plants = document.querySelector(".plants");
-  plants.addEventListener("click", async (event) => {
+  const infoButton = document.querySelector(".infoButton");
+  infoButton.addEventListener("click", async (event) => {
+    const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
     const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
-    const plant = await fetchData(`/api/plant/${event.target.id}`);
     const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
     appendElement(modalContent, "h2", null, plant.name);
     appendElement(modalContent, "p", null, `Id: ${plant.id}`);
@@ -116,7 +116,7 @@ function displayPlantData() {
     modal.style.display = "block";
     hideButton.addEventListener("click", () => {
       modal.textContent = "";
-      modal.style.display = 'none';
+      modal.style.display = "none";
     });
   });
 }
@@ -136,10 +136,9 @@ function displayPlantData() {
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
-
   displayPlants(allPlants, rootElement);
   handelBackButton();
-  displayPlantData();
 
+  displayPlantData();
 }
 main();

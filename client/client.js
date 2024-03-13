@@ -99,24 +99,26 @@ function handelBackButton() {
 }
 
 function displayPlantData() {
-  const infoButton = document.querySelector(".infoButton");
-  infoButton.addEventListener("click", async (event) => {
-    const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
-    const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
-    const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
-    appendElement(modalContent, "h2", null, plant.name);
-    appendElement(modalContent, "p", null, `Id: ${plant.id}`);
-    appendElement(modalContent, "p", null, `Description: ${plant.description}`);
-    appendElement(modalContent, "p", null, `Price: ${plant.price}`);
-    appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
-    appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
-    appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
-    appendElement(modalContent, "img", null, null, {src: plant.pic});
-    const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
-    modal.style.display = "block";
-    hideButton.addEventListener("click", () => {
-      modal.textContent = "";
-      modal.style.display = "none";
+  const infoButtons = document.querySelectorAll(".infoButton");
+  infoButtons.forEach((infoButton) => {
+    infoButton.addEventListener("click", async (event) => {
+      const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
+      const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
+      const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+      appendElement(modalContent, "h2", null, plant.name);
+      appendElement(modalContent, "p", null, `Id: ${plant.id}`);
+      appendElement(modalContent, "p", null, `Description: ${plant.description}`);
+      appendElement(modalContent, "p", null, `Price: ${plant.price}`);
+      appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
+      appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
+      appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
+      appendElement(modalContent, "img", null, null, {src: plant.pic});
+      const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
+      modal.style.display = "block";
+      hideButton.addEventListener("click", () => {
+        modal.textContent = "";
+        modal.style.display = "none";
+      });
     });
   });
 }

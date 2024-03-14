@@ -1,4 +1,4 @@
-async function fetchData (url) {
+async function fetchData(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -8,14 +8,14 @@ async function fetchData (url) {
   }
 }
 
-function appendElement (parent, tagName, classes, text, attributes) {
+function appendElement(parent, tagName, classes, text, attributes) {
   const elementName = document.createElement(tagName);
   parent.appendChild(elementName);
   if (classes) {
-    if (typeof classes === "string" ){
+    if (typeof classes === "string") {
       classes = [classes];
     }
-    for (const className of classes){
+    for (const className of classes) {
       elementName.classList.add(className);
     }
   }
@@ -28,10 +28,21 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
-function displayPlants(parent, plants, counterElement, totalPrice, totalPriceDiv, itemCounter, cartObject, allAddedPlantsDiv) {
+function displayPlants(plants, parent) {
+  const cartDiv = appendElement(parent, "div", "cart", null);
+  const imgElement = appendElement(cartDiv, "img", null, null, { src: "/plants/shopping cart.png" });
+  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
+  const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
+  const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
+  let itemCounter = 0;
+  let costumer = 1;
+  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
+  let totalPrice = 0;
+  let cartObject = {};
+  const allPlants = appendElement(parent, "div", "plantsContainer");
   plants.forEach((plant) => {
-    const currentPlant = appendElement(parent, "div", "plants", null, {id: plant.id});
-    appendElement(currentPlant, "img", null, null, {src: plant.pic});
+    const currentPlant = appendElement(allPlants, "div", "plants", null, { id: plant.id });
+    appendElement(currentPlant, "img", null, null, { src: plant.pic });
     appendElement(currentPlant, "h6", null, plant.name);
     appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
@@ -44,10 +55,10 @@ function displayPlants(parent, plants, counterElement, totalPrice, totalPriceDiv
         cartObject[plant.name] = 1;
         cartObject[plant.price] = plant.price;
         const addedPlants = appendElement(allAddedPlantsDiv, "div", "added");
-        appendElement(addedPlants, "img", null, null, {src: plant.pic});
-        appendElement(addedPlants, "li", null, plant.name, {id: plant.name});
-        appendElement(addedPlants, "ul", null, `quantity: ${cartObject[plant.name]}`, {id: `quant${plant.name}`});
-        appendElement(addedPlants, "ul", null, `price: ${cartObject[plant.price].toFixed(2)}`, {id: `price${plant.name}`});
+        appendElement(addedPlants, "img", null, null, { src: plant.pic });
+        appendElement(addedPlants, "li", null, plant.name, { id: plant.name });
+        appendElement(addedPlants, "ul", null, `quantity: ${cartObject[plant.name]}`, { id: `quant${plant.name}` });
+        appendElement(addedPlants, "ul", null, `price: ${cartObject[plant.price].toFixed(2)}`, { id: `price${plant.name}` });
         // appendElement(addedPlants, "button", "delete", "Remove from cart");
       } else {
         cartObject[plant.name]++;
@@ -57,36 +68,65 @@ function displayPlants(parent, plants, counterElement, totalPrice, totalPriceDiv
       }
     });
   });
-}
-
-function displaypage(plants, parent) {
-  const cartDiv = appendElement(parent, "div", "cart", null);
-  const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
-  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
-  const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
-  const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
-  let itemCounter = 0;
-  let costumer = 1;
-  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
-  let totalPrice = 0;
-  let cartObject = {};
-  const allPlants = appendElement(parent, "div", "plantsContainer");
-  displayPlants(allPlants, plants, counterElement, totalPrice, totalPriceDiv, itemCounter, cartObject, allAddedPlantsDiv);
   cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
-  cartObject = checkoutListener(cartObject, checkoutButton, costumer);
+  addCheckoutListener(cartObject, checkoutButton);
 }
 
-function checkoutListener(cartObject, checkoutButton, costumer) {
-  checkoutButton.addEventListener("click", ()  => {
-    const cart = {
-      [costumer] : cartObject,
-    };
-    costumer++;
-    postCart(cart);
+function addCheckoutListener(cartObject, cartButton) {
+  cartButton.addEventListener("click", () => {
+    addCheckOutModal(cartObject);
   });
-  cartObject = {};
-  return cartObject;
+}
 
+function addCheckOutModal(cartObject) {
+  const modal = appendElement(document.querySelector("#root"), "div", "modal", null, { id: "modal" });
+  const modalContent = appendElement(modal, "div", "modalContent", null, { id: "modalContent" });
+  const form = appendElement(modalContent, "form", "form", null, {id: "form"});
+  const firstNameInput = appendElement(form, "input", "firstNameInput", null, { id: "firstName" });
+  const lastNameInput = appendElement(form, "input", "lastNameInput", null, { id: "lastName" });
+  const adressInput = appendElement(form, "input", "adressInput", null, { id: "adress" });
+  const phoneInput = appendElement(form, "input", "phoneInput", null, { id: "phone" });
+  const emailInput = appendElement(form, "input", "emailInput", null, { id: "email" });
+  const cardInput = appendElement(form, "input", "cardInput", null, { id: "card" });
+  firstNameInput.placeholder = "Firstname";
+  lastNameInput.placeholder = "Lastname";
+  adressInput.placeholder = "Adress";
+  phoneInput.placeholder = "Phone number";
+  emailInput.placeholder = "Email adress";
+  cardInput.placeholder = "Card number";
+  const costumerObject = {
+    firtsName: firstNameInput,
+    lastName: lastNameInput,
+    adress: adressInput,
+    phone: phoneInput,
+    email: emailInput,
+    card: cardInput,
+    cart: cartObject,
+  };
+  const buyNowButton = appendElement(form, "button", "buyNowButton", "Buy now", {type: "button"});
+  addBuyButtonListener(buyNowButton, modalContent, costumerObject);
+}
+
+function addBuyButtonListener(button, modalElement, customerInputs){
+  button.addEventListener("click", () => {
+    const customerObject = {
+      firtsName: customerInputs.firtsName.value,
+      lastName: customerInputs.lastName.value,
+      adress: customerInputs.adress.value,
+      phone: customerInputs.phone.value,
+      email: customerInputs.email.value,
+      card: customerInputs.card.value,
+      cart: customerInputs.cart,
+    };
+    const cart = {
+      costumer: customerObject,
+    };
+    postCart(cart);
+    modalElement.textContent = "Thank you, we have received your order!";
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  });
 }
 
 async function postCart(cart) {
@@ -135,8 +175,8 @@ function displayPlantData() {
   infoButtons.forEach((infoButton) => {
     infoButton.addEventListener("click", async (event) => {
       const plant = await fetchData(`/api/plant/${event.target.parentElement.id}`);
-      const modal = appendElement(document.querySelector("#root"), "div", "modal", null, {id: "modal"});
-      const modalContent = appendElement(modal, "div", "modalContent", null, {id: "modalContent"});
+      const modal = appendElement(document.querySelector("#root"), "div", "modal", null, { id: "modal" });
+      const modalContent = appendElement(modal, "div", "modalContent", null, { id: "modalContent" });
       appendElement(modalContent, "h2", null, plant.name);
       appendElement(modalContent, "p", null, `Id: ${plant.id}`);
       appendElement(modalContent, "p", null, `Description: ${plant.description}`);
@@ -144,7 +184,7 @@ function displayPlantData() {
       appendElement(modalContent, "p", null, `Stock: ${plant.stock}`);
       appendElement(modalContent, "p", null, `Water-requirement: ${plant["water_requirement"]}`);
       appendElement(modalContent, "p", null, `Light-requirement: ${plant["light_requirement"]}`);
-      appendElement(modalContent, "img", null, null, {src: plant.pic});
+      appendElement(modalContent, "img", null, null, { src: plant.pic });
       const hideButton = appendElement(modalContent, "button", "hideButton", "Hide");
       modal.style.display = "block";
       hideButton.addEventListener("click", () => {
@@ -171,8 +211,9 @@ function displayPlantData() {
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
-  displaypage(allPlants, rootElement);
+  displayPlants(allPlants, rootElement);
   handelBackButton();
+
   displayPlantData();
 }
 main();

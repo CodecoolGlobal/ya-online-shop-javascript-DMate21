@@ -34,23 +34,20 @@ function displayPlants(plants, parent) {
   const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
   const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
   const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
-  let itemCounter = 0;
-  let costumer = 1;
-  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
+  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: 0`);
   let totalPrice = 0;
   let cartObject = {};
   const allPlants = appendElement(parent, "div", "plantsContainer");
-  plants.forEach((plant) => {
+  plants.forEach((plant, i) => {
     const currentPlant = appendElement(allPlants, "div", "plants", null, { id: plant.id });
     appendElement(currentPlant, "img", null, null, { src: plant.pic });
     appendElement(currentPlant, "h6", null, plant.name);
     appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
-    button.addEventListener("click", () => {
+    const handleClick = () => {
       totalPrice += plant.price;
       totalPriceDiv.textContent = `Total: ${totalPrice.toFixed(2)}`;
-      itemCounter++;
-      counterElement.textContent = `Items: ${itemCounter}`;
+      counterElement.textContent = `Items: ${i+1}`;
       if (!document.getElementById(plant.name)) {
         cartObject[plant.name] = 1;
         cartObject[plant.price] = plant.price;
@@ -66,7 +63,8 @@ function displayPlants(plants, parent) {
         document.getElementById(`quant${plant.name}`).textContent = `quantity: ${cartObject[plant.name]}`;
         document.getElementById(`price${plant.name}`).textContent = `price: ${cartObject[plant.price].toFixed(2)}`;
       }
-    });
+    };
+    button.addEventListener("click", () => handleClick());
   });
   cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
   addCheckoutListener(cartObject, checkoutButton);

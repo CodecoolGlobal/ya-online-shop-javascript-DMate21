@@ -79,7 +79,8 @@ app.post("/api/plant/", async (req, res) => {
   });
   const newPlant = req.body;
   newPlant.id = highestId + 1;
-
+  newPlant.price = Number(newPlant.price);
+  newPlant.stock = Number(newPlant.stock);
   plants.push(newPlant);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(newPlant);

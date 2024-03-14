@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Snake Plant",
     "description": "The Snake Plant is a low-maintenance plant that can survive low light levels and irregular watering.",
-    "price": 12.99,
+    "price": 3,
     "stock": 25,
     "water_requirement": "Low",
     "light_requirement": "Low to medium",
@@ -98,5 +98,25 @@
     "water_requirement": "High",
     "light_requirement": "Bright, indirect light",
     "pic": "/plants/Majesty Palm.png"
+  },
+  {
+    "id": 11,
+    "name": "New Plant",
+    "description": "This is a great plant",
+    "price": 1,
+    "stock": 2,
+    "water_requirement": "low",
+    "light_requirement": "high",
+    "pic": ""
+  },
+  {
+    "id": 12,
+    "name": "New Plant 2",
+    "description": "This is a great plant",
+    "price": 1.4,
+    "stock": 2,
+    "water_requirement": "low",
+    "light_requirement": "high",
+    "pic": ""
   }
 ]

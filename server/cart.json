@@ -1,2 +1,18 @@
 [
+  {
+    "costumer": {
+      "firtsName": "Artur",
+      "lastName": "Kovacs",
+      "adress": "Budapest",
+      "phone": "1",
+      "email": "artur.kovacs@codecool.com",
+      "card": "1",
+      "cart": {
+        "Snake Plant": 1,
+        "12.99": 12.99,
+        "Fiddle Leaf Fig": 1,
+        "29.99": 29.99
+      }
+    }
+  }
 ]

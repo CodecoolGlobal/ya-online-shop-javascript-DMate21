@@ -8,6 +8,7 @@ import path from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataJsonPath = join(__dirname, "data.json");
+const cartJsonPath = join(__dirname, "cart.json");
 
 const app = express();
 const PORT = 6969;
@@ -82,6 +83,19 @@ app.post("/api/plant/", async (req, res) => {
   plants.push(newPlant);
   await writeFile(dataJsonPath, JSON.stringify(plants, null, 2));
   res.send(newPlant);
+});
+
+async function readCart() {
+  const cartJson = await readFile("./cart.json", "utf-8");
+  return JSON.parse(cartJson);
+}
+
+app.post("/api/checkout", async (req, res) => {
+  const cart = await readCart();
+  const cartContent = req.body;
+  cart.push(cartContent);
+  await writeFile(cartJsonPath, JSON.stringify(cart, null, 2));
+  res.send(cartContent);
 });
 
 

@@ -45,7 +45,7 @@ function addPatchEventListener(button, input, currentPlant, type){
       [type]: parseInt(input.value),
     };
     await patchPlant(currentPlant.id, update, type);
-    displayPlants();
+    displaypage();
   });
 }
 
@@ -83,7 +83,7 @@ function addPostEventListener() {
       pic: picInput.value,
     };
     await postPlant(newPlant);
-    displayPlants();
+    displaypage();
   });
 }
 
@@ -94,7 +94,7 @@ async function deletePlantById(id) {
 function addDeleteButtonListener(deleteButton, currentplant) {
   deleteButton.addEventListener("click", async () => {
     await deletePlantById(currentplant.id);
-    displayPlants();
+    displaypage();
   });
 }
 
@@ -123,7 +123,7 @@ function displayPlantData(parent, plant) {
   appendElement(parent, "img", null, null, { src: plant.pic });
 }
 
-async function displayPlants() {
+async function displaypage() {
   const rootElement = document.getElementById("root");
   rootElement.innerHTML = "";
   const allPlants = await fetchData("/api/plants");
@@ -139,7 +139,7 @@ async function displayPlants() {
 
 
 function main() {
-  displayPlants();
+  displaypage();
   addPostEventListener();
 }
 main();

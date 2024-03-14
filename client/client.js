@@ -28,20 +28,9 @@ function appendElement (parent, tagName, classes, text, attributes) {
   return elementName;
 }
 
-function displayPlants(plants, parent) {
-  const cartDiv = appendElement(parent, "div", "cart", null);
-  const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
-  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
-  const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
-  const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
-  let itemCounter = 0;
-  let costumer = 1;
-  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
-  let totalPrice = 0;
-  let cartObject = {};
-  const allPlants = appendElement(parent, "div", "plantsContainer");
+function displayPlants(parent, plants, counterElement, totalPrice, totalPriceDiv, itemCounter, cartObject, allAddedPlantsDiv) {
   plants.forEach((plant) => {
-    const currentPlant = appendElement(allPlants, "div", "plants", null, {id: plant.id});
+    const currentPlant = appendElement(parent, "div", "plants", null, {id: plant.id});
     appendElement(currentPlant, "img", null, null, {src: plant.pic});
     appendElement(currentPlant, "h6", null, plant.name);
     appendElement(currentPlant, "button", "infoButton", "Information about the plant");
@@ -68,12 +57,27 @@ function displayPlants(plants, parent) {
       }
     });
   });
+}
+
+function displaypage(plants, parent) {
+  const cartDiv = appendElement(parent, "div", "cart", null);
+  const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
+  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
+  const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
+  const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
+  let itemCounter = 0;
+  let costumer = 1;
+  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
+  let totalPrice = 0;
+  let cartObject = {};
+  const allPlants = appendElement(parent, "div", "plantsContainer");
+  displayPlants(allPlants, plants, counterElement, totalPrice, totalPriceDiv, itemCounter, cartObject, allAddedPlantsDiv);
   cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
   cartObject = checkoutListener(cartObject, checkoutButton, costumer);
 }
 
-function checkoutListener(cartObject, cartButton, costumer) {
-  cartButton.addEventListener("click", ()  => {
+function checkoutListener(cartObject, checkoutButton, costumer) {
+  checkoutButton.addEventListener("click", ()  => {
     const cart = {
       [costumer] : cartObject,
     };
@@ -82,6 +86,7 @@ function checkoutListener(cartObject, cartButton, costumer) {
   });
   cartObject = {};
   return cartObject;
+
 }
 
 async function postCart(cart) {
@@ -166,9 +171,8 @@ function displayPlantData() {
 async function main() {
   const rootElement = document.querySelector("#root");
   const allPlants = await fetchData("/api/plants/");
-  displayPlants(allPlants, rootElement);
+  displaypage(allPlants, rootElement);
   handelBackButton();
-
   displayPlantData();
 }
 main();

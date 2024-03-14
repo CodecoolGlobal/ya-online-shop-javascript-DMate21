@@ -31,13 +31,14 @@ function appendElement (parent, tagName, classes, text, attributes) {
 function displayPlants(plants, parent) {
   const cartDiv = appendElement(parent, "div", "cart", null);
   const imgElement = appendElement(cartDiv, "img", null, null, {src: "/plants/shopping cart.png"});
-  appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
+  const checkoutButton = appendElement(cartDiv, "button", ["checkout", "hidden"], "Go to checkout");
   const allAddedPlantsDiv = appendElement(cartDiv, "div", ["plantsDiv", "hidden"]);
   const totalPriceDiv = appendElement(cartDiv, "div", ["total", "hidden"]);
-  let counter = 0;
-  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${counter}`);
+  let itemCounter = 0;
+  let costumer = 1;
+  const counterElement = appendElement(cartDiv, "ul", "counter", `Items: ${itemCounter}`);
   let totalPrice = 0;
-  const plantsObject = {};
+  let cartObject = {};
   const allPlants = appendElement(parent, "div", "plantsContainer");
   plants.forEach((plant) => {
     const currentPlant = appendElement(allPlants, "div", "plants", null, {id: plant.id});
@@ -45,30 +46,55 @@ function displayPlants(plants, parent) {
     appendElement(currentPlant, "h6", null, plant.name);
     appendElement(currentPlant, "button", "infoButton", "Information about the plant");
     const button = appendElement(currentPlant, "button", "cartButton", "Add to cart");
-    plantsObject[plant.name] = 1;
-    plantsObject[plant.price] = plant.price;
     button.addEventListener("click", () => {
       totalPrice += plant.price;
       totalPriceDiv.textContent = `Total: ${totalPrice.toFixed(2)}`;
-      counter++;
-      counterElement.textContent = `Items: ${counter}`;
+      itemCounter++;
+      counterElement.textContent = `Items: ${itemCounter}`;
       if (!document.getElementById(plant.name)) {
+        cartObject[plant.name] = 1;
+        cartObject[plant.price] = plant.price;
         const addedPlants = appendElement(allAddedPlantsDiv, "div", "added");
         appendElement(addedPlants, "img", null, null, {src: plant.pic});
         appendElement(addedPlants, "li", null, plant.name, {id: plant.name});
-        appendElement(addedPlants, "ul", null, `quantity: ${plantsObject[plant.name]}`, {id: `quant${plant.name}`});
-        appendElement(addedPlants, "ul", null, `price: ${plantsObject[plant.price].toFixed(2)}`, {id: `price${plant.name}`});
+        appendElement(addedPlants, "ul", null, `quantity: ${cartObject[plant.name]}`, {id: `quant${plant.name}`});
+        appendElement(addedPlants, "ul", null, `price: ${cartObject[plant.price].toFixed(2)}`, {id: `price${plant.name}`});
         // appendElement(addedPlants, "button", "delete", "Remove from cart");
       } else {
-        plantsObject[plant.name]++;
-        plantsObject[plant.price] += plant.price;
-        document.getElementById(`quant${plant.name}`).textContent = `quantity: ${plantsObject[plant.name]}`;
-        document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;
+        cartObject[plant.name]++;
+        cartObject[plant.price] += plant.price;
+        document.getElementById(`quant${plant.name}`).textContent = `quantity: ${cartObject[plant.name]}`;
+        document.getElementById(`price${plant.name}`).textContent = `price: ${cartObject[plant.price].toFixed(2)}`;
       }
     });
   });
   cartListener(imgElement, totalPriceDiv, allAddedPlantsDiv);
+  cartObject = checkoutListener(cartObject, checkoutButton, costumer);
 }
+
+function checkoutListener(cartObject, cartButton, costumer) {
+  cartButton.addEventListener("click", ()  => {
+    const cart = {
+      [costumer] : cartObject,
+    };
+    costumer++;
+    postCart(cart);
+  });
+  cartObject = {};
+  return cartObject;
+}
+
+async function postCart(cart) {
+  await fetch("/api/checkout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cart),
+  });
+}
+
+
 
 function cartListener(imgElement, totalPriceDiv, plantsDiv) {
   const allPlantsDivs = document.querySelector(".plantsContainer");
@@ -133,6 +159,7 @@ function displayPlantData() {
 //     document.getElementById(`price${plant.name}`).textContent = `price: ${plantsObject[plant.price].toFixed(2)}`;
 //   });
 // }
+
 
 
 

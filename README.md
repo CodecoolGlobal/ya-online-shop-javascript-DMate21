@@ -29,7 +29,12 @@ A simple plant shop application with a frontend and backend built using **Expres
    cd ya-online-shop-javascript-DMate21
    ```
 2. **Install Dependencies:**
- Make sure you have Node.js installed. Then, run the following command to install the required dependencies:
+ Make sure you have Node.js installed. Then, run the following commands to install the required dependencies:
+
+```bash
+cd .\server\
+```
+
 ```bash
 npm install
 ```

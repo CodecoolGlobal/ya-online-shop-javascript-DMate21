@@ -1,5 +1,12 @@
 # Plant Shop Project
 
+<br />
+<div align="center">
+<a href="https://github.com/CodecoolGlobal/ya-online-shop-javascript-DMate21">
+<img src="client\images\shop.PNG" alt="Logo" >
+ </a>
+</div>
+
 A simple plant shop application with a frontend and backend built using **Express** for the server and **HTML**, **CSS**, and **JavaScript** for the frontend. The app allows users to browse plants, add them to a cart, and perform checkout operations. There is also an admin page where you can manage plants.
 
 ## Features
